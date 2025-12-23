@@ -21,6 +21,7 @@
 <script>
 let icons = ["🍎","🍌","🍇","🍒","🍎","🍌","🍇","🍒"];
 icons = icons.sort(() => Math.random() - 0.5);
+
 let board = document.getElementById("board");
 let first = null;
 let lock = false;
@@ -29,29 +30,33 @@ icons.forEach(icon=>{
   let card = document.createElement("div");
   card.className="card";
   card.dataset.icon = icon;
-  card.innerHTML = icon;
+  card.innerHTML = ""; // الكارت فاضي في البداية
+
   card.addEventListener("click", ()=>{
     if(lock || card.classList.contains("show")) return;
+
     card.classList.add("show");
+    card.innerHTML = icon; // عرض الإيموجي
 
     if(!first){
       first = card;
     } else {
-      if(first.dataset.icon == card.dataset.icon){
+      if(first.dataset.icon === card.dataset.icon){
         first = null;
       } else {
         lock = true;
         setTimeout(()=>{
           first.classList.remove("show");
+          first.innerHTML = "";
           card.classList.remove("show");
+          card.innerHTML = "";
           first = null;
           lock = false;
-        },800);
+        }, 800);
       }
     }
   });
+
   board.appendChild(card);
 });
 </script>
-</body>
-</html>
