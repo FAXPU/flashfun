@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clicker Game</title>
+  <style>
+    body { background:#0d0d0d; color:white; text-align:center; font-family:Arial; }
+    button {
+      margin-top:40px; padding:20px 40px; font-size:22px;
+      border:none; border-radius:10px; cursor:pointer;
+      background:#1a1a1a; color:white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clicker Game</h1>
+  <h2 id="score">0</h2>
+  <button onclick="score()">Click me</button>
+
+<script>
+let s = 0;
+function score(){
+  s++;
+  document.getElementById("score").innerText = s;
+}
+</script>
+</body>
+</html>
