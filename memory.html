@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Game</title>
+  <style>
+    body { background:#0d0d0d; color:white; text-align:center; font-family:Arial; }
+    #board { display:grid; grid-template-columns:repeat(4,80px); gap:10px; justify-content:center; margin-top:40px; }
+    .card {
+      width:80px; height:80px; background:#1a1a1a; border-radius:8px;
+      font-size:30px; display:flex; justify-content:center; align-items:center;
+      cursor:pointer; transition:0.2s; color:#0d0d0d;
+    }
+    .card.show { color:white; background:#444; }
+  </style>
+</head>
+<body>
+  <h1>Memory Game</h1>
+  <div id="board"></div>
+
+<script>
+let icons = ["🍎","🍌","🍇","🍒","🍎","🍌","🍇","🍒"];
+icons = icons.sort(() => Math.random() - 0.5);
+let board = document.getElementById("board");
+let first = null;
+let lock = false;
+
+icons.forEach(icon=>{
+  let card = document.createElement("div");
+  card.className="card";
+  card.dataset.icon = icon;
+  card.innerHTML = icon;
+  card.addEventListener("click", ()=>{
+    if(lock || card.classList.contains("show")) return;
+    card.classList.add("show");
+
+    if(!first){
+      first = card;
+    } else {
+      if(first.dataset.icon == card.dataset.icon){
+        first = null;
+      } else {
+        lock = true;
+        setTimeout(()=>{
+          first.classList.remove("show");
+          card.classList.remove("show");
+          first = null;
+          lock = false;
+        },800);
+      }
+    }
+  });
+  board.appendChild(card);
+});
+</script>
+</body>
+</html>
